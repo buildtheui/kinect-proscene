@@ -1,7 +1,7 @@
 # kinect-proscene
 kinect interaction using processing and proscene
 
-## libraries and SDK
+## Libraries and SDK
 * [Processing](https://processing.org/) 
 * [Proscene](https://github.com/remixlab/proscene)
 * [kinect4WinSDK](https://github.com/chungbwc/Kinect4WinSDK)
