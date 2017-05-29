@@ -15,4 +15,4 @@ kinect interaction using processing and proscene
 * Five degrees of freedom: 3 translations on right hand (height, width, depth), 2 rotations on left hand (Y, Z)
 * Increasing or decreasing sensitivities ('+' or '-' key)
 * Flip the main scene ('y' key)
-* Shift scene to manipulate the Iframe example ('SPACE' key)
+* Shift scene to manipulate the Iframe example ('i' key)
