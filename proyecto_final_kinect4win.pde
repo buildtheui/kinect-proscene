@@ -1,3 +1,9 @@
+/**
+ * Kinect interaction with proscene
+ * by Fabián Monsalve and Rafael Díez.
+ *
+ */
+
 import remixlab.proscene.*;
 import remixlab.proscene.*;
 import remixlab.bias.*;
@@ -57,7 +63,9 @@ void setup() {
   
   // we bound some frame DOF5 actions to the gesture on both frames
   mainScene.eyeFrame().setMotionBinding(SN_ID, "translateRotateXYZ");
-  //iFrame.setMotionBinding(SN_ID, "translateXYZ");
+  // manipulate Iframe, when shift default grabber
+  iFrame.setMotionBinding(SN_ID, "translateRotateXYZ");
+  hidAgent.addGrabber(iFrame);
   smooth();
 
   kinectAgent.setUpBodyData();
@@ -68,9 +76,7 @@ void draw() {
   
   mainScene.beginDraw();
   background(0);
-  mainScene.pg().fill(204, 102, 0, 150);
-  mainScene.drawTorusSolenoid();
-
+  
   // Save the current model view matrix
   pushMatrix();
   // Multiply matrix to get in the frame coordinate system.
@@ -183,16 +189,33 @@ public void processKinectLeftHand(float x , float y){
 }
 
 public void keyPressed() {
+  // flip the scene
+  if ( key == 'y')
+    mainScene.flip();
+  // shift to manipulate the Iframe
   if ( key == 'i')
     mainScene.inputHandler().shiftDefaultGrabber(mainScene.eyeFrame(), iFrame);
-  if ( key == ' ')
-    //toggleFirstPerson();
-  if(key == '+')
-    mainScene.eyeFrame().setFlySpeed(mainScene.eyeFrame().flySpeed() * 1.1);
-  if(key == '-')
-    mainScene.eyeFrame().setFlySpeed(mainScene.eyeFrame().flySpeed() / 1.1);
+  // adding more sensitivity to the DOF5
+  if(key == '+'){
+    float [] sens = hidAgent.getSens();
+    for (int i = 0; i < sens.length; i++) {
+      if(i != 3){
+        sens[i] += 1;
+      }
+    }
+    hidAgent.setSens(sens);    
+  }
+  // subtracting sensitivity to the DOF5
+  if(key == '-'){
+    float [] sens = hidAgent.getSens();
+    for (int i = 0; i < sens.length; i++) {
+      if(i != 3 && sens[i] > 0){
+        sens[i] -= 1;
+      }
+    }
+    hidAgent.setSens(sens); 
+  }   
 }
-
 
 // kinect4WinSDK updating default methods
 void appearEvent(SkeletonData _s) 

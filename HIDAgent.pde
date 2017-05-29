@@ -1,5 +1,5 @@
 public class HIDAgent extends Agent {
-  float [] sens = {3, 3, 3, 3, 3, 3};
+  float [] sens = {4, 4, 7, 0, 5, 5};
   
   public HIDAgent(Scene scn) {
     super(scn.inputHandler());
@@ -24,4 +24,13 @@ public class HIDAgent extends Agent {
   public DOF6Event feed() {
     return new DOF6Event(defaultXPosition, defaultYPosition, defaultZPosition, 0, defaultYRotate, defaultZRotate, BogusEvent.NO_MODIFIER_MASK, SN_ID);
   }
+  
+  public float[] getSens(){
+    return this.sens; 
+  }
+
+  public void setSens(float[] sens){
+    this.sens = sens;
+  }
+
 }
